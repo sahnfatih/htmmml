@@ -1,0 +1,1 @@
+{"version":3,"file":"contactService.d.ts","sourceRoot":"","sources":["../../src/services/contactService.ts"],"names":[],"mappings":"AAEA,MAAM,WAAW,eAAe;IAC5B,IAAI,EAAE,MAAM,CAAC;IACb,KAAK,EAAE,MAAM,CAAC;IACd,OAAO,EAAE,MAAM,CAAC;IAChB,OAAO,EAAE,MAAM,CAAC;IAChB,OAAO,EAAE,OAAO,CAAC;CACpB;AAED,eAAO,MAAM,iBAAiB,SAAgB,eAAe,KAAG,QAAQ,IAAI,CAQ3E,CAAC"}

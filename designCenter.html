@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="dark-theme" lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasarım Merkezi</title>
+
+    <!-- React ve ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    
+    <!-- Build System CSS -->
+    <link rel="stylesheet" href="./assets/build-system/build-system.css">
+
+    <style>
+        #build-system-root {
+            width: 300px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background-color: #fff;
+            border-right: 1px solid #e0e0e0;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .dark-theme #build-system-root {
+            background-color: #1a1a1a;
+            border-right-color: #333;
+        }
+
+        .page-content {
+            margin-left: 300px;
+            padding: 20px;
+        }
+
+        .editor-container {
+            position: relative;
+        }
+
+        .elements-btn {
+            position: fixed;
+            z-index: 1000;
+        }
+
+        .editor-body {
+            position: relative;
+        }
+
+        #web_preview {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Editor Container -->
+    <div class="editor-container">
+        <!-- Elements Button -->
+        <a href="#" class="elements-btn blink" title="Elements" data-element-type="elements"></a>
+        
+        <!-- Editor Body -->
+        <div class="editor-body">
+            <div id="pointer"></div>
+            <iframe id="web_preview" src="about:blank"></iframe>
+        </div>
+    </div>
+    
+    <!-- Build System Container -->
+    <div id="build-system-root"></div>
+
+    <!-- Page Content -->
+    <div class="page-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Tasarım Merkezi</h4>
+                            <p class="sub-header">
+                                Tasarım merkezinde tema düzenlemelerinizi yapabilirsiniz.
+                            </p>
+                            <div id="content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Build System JS -->
+    <script src="./assets/build-system/build-system.js"></script>
+    
+    <script>
+        // DOM elementlerini oluştur
+        document.addEventListener('DOMContentLoaded', function() {
+            // app.js için gerekli global değişkenleri tanımla
+            window.editorConfig = {
+                isPreview: false,
+                iframeMode: true
+            };
+
+            // BuildSystem initialization
+            function initBuildSystem() {
+                if (window.BuildSystem) {
+                    try {
+                        const buildSystemContainer = document.getElementById('build-system-root');
+                        const Build = window.BuildSystem.Build;
+
+                        ReactDOM.render(
+                            React.createElement(Build, {
+                                components: [
+                                    'Header',
+                                    'LongTextComponent',
+                                    'RoundImageHeroComponent',
+                                    'QuoteSection',
+                                    'StatisticsSection',
+                                    'ContactForm',
+                                    'ContactInfo',
+                                    'Footer',
+                                    'Container',
+                                    'Slider',
+                                    'ProductBox',
+                                    'TextComponent',
+                                    'BannerComponent',
+                                    'ImageBox'
+                                ],
+                                onlyShowSidebar: true,
+                                onSave: function(content) {
+                                    console.log('Sayfa içeriği:', content);
+                                    const contentDiv = document.getElementById('content');
+                                    if (contentDiv) {
+                                        contentDiv.innerHTML = content;
+                                    }
+                                }
+                            }),
+                            buildSystemContainer
+                        );
+                    } catch (error) {
+                        console.error('BuildSystem initialization error:', error);
+                    }
+                } else {
+                    setTimeout(initBuildSystem, 100);
+                }
+            }
+
+            // BuildSystem'i başlat
+            initBuildSystem();
+        });
+
+        // Global hata yakalama
+        window.onerror = function(msg, url, line, col, error) {
+            console.error('Global error:', {
+                message: msg,
+                url: url,
+                line: line,
+                column: col,
+                error: error
+            });
+            return false;
+        };
+
+        // app.js için gerekli global fonksiyonları tanımla
+        window.initializeEditor = function() {
+            console.log('Editor initialized');
+        };
+    </script>
+
+    <!-- Önce jQuery'yi yükle -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Sonra diğer scriptleri yükle -->
+    <script src="https://app.kiraz.co/js/template-engine/app.js"></script>
+    <script src="https://app.kiraz.co/js/template-engine/brush-area.js"></script>
+</body>
+</html>
